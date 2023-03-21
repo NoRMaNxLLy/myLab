@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# read from a pipe, then read from the terminal again
+
+while IFS= read -r line; do
+    printf '%s\n' "$line"
+done
+
+exec < /dev/tty
+echo "can you type?"
+read -r
+
+
