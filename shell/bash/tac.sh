@@ -3,15 +3,21 @@
 # mimic the tac(1) command
 
 tac() {
+    # if stdin is not terminal
     if ! [[ -t 0 ]]; then
-        mapfile lines
-    else
-        mapfile lines < "$1"
+        mapfile -t lines
+        for ((i = ${#lines[@]} - 1; i >= 0; i--)); do
+            printf '%s\n' "${lines[$i]}"
+        done
+        return
     fi
 
-    for ((i = ${#lines[@]}; i >= 0; i--)); do
-        printf '%s' "${lines[$i]}"
+    for f; do
+        mapfile -t lines < "$f"
+        for ((i = ${#lines[@]} - 1; i >= 0; i--)); do
+            printf '%s\n' "${lines[$i]}"
+        done
     done
 }
 
-tac "$f"
+tac "$@"
