@@ -51,20 +51,16 @@ output() {
     ((remains %= 60))
 
     printf '%s %s' $prefix $sign
-    if ((hours != 0)); then
-        printf '%02d:%02d:%02d\n' $hours $minutes $remains
-    elif ((minutes != 0)); then
-        printf '%02d:%02d\n' $minutes $remains
-    else
-        printf '%02d\n' $remains
-    fi
+    ((hours != 0)) && printf '%02d:' $hours
+    printf '%02d:%02d\n' $minutes $remains
 }
 
 main() {
     case "$1" in
         start)
             [[ -n $2 ]] && parse_duration "$2"
-            printf "%(%s)T $duration\n" > "/tmp/pomo"
+            # -1 represents the current time. read bash(1).
+            printf '%(%s)T %d\n' -1 $duration > "/tmp/pomo"
             ;;
         stop)
             rm "/tmp/pomo" 2>/dev/null
