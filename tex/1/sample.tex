@@ -1,0 +1,37 @@
+\documentclass[11pt]{article}
+
+\usepackage{iftex}
+\ifPDFTeX
+    \usepackage[utf8]{inputenc}
+    \usepackage[T1]{fontenc}
+    \usepackage[arabic]{babel}
+\else
+    \usepackage{polyglossia}
+
+    \setdefaultlanguage[numerals=maghrib]{arabic}
+    \setotherlanguage{english}
+    \newfontfamily\arabicfont[Script=Arabic]{Amiri}
+\fi
+
+\usepackage{indentfirst}
+
+\title{تجربة}
+\author{محمد عبدالعظيم هامان}
+\date{\today}
+
+\begin{document}
+\maketitle
+\section{عنوان
+رئيسي}\label{ux639ux646ux648ux627ux646-ux631ux626ux64aux633ux64a}
+
+ضرب زيد عمرا
+
+\subsection{عنوان
+فرعي}\label{ux639ux646ux648ux627ux646-ux641ux631ux639ux64a}
+
+ضرب عمرا زيد
+
+\begin{english}
+    \hphenation{english} text
+\end{english}
+\end{document}
