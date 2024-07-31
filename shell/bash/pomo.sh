@@ -2,7 +2,8 @@
 
 # default duration: 25m
 duration="1500"
-prefix=
+work_prefix=
+break_prefix=
 stop_prefix=
 
 parse_duration() {
@@ -39,18 +40,20 @@ parse_duration() {
 }
 
 output() {
+    prefix=$work_prefix
     sign=''
     if ((remains < 0)); then
+        prefix=$break_prefix
         local sign='-'
         ((remains *= -1))
+        ((remains % 2 != 0)) && prefix=''   # blinking effect
     fi
 
-    ((hours = remains / 3600))
-    ((remains %= 3600))
-    ((minutes = remains / 60))
-    ((remains %= 60))
+    ((hours   = remains / 3600, remains %= 3600))
+    ((minutes = remains / 60,   remains %= 60))
 
-    printf '%s %s' $prefix $sign
+    printf '%s ' $prefix
+    [[ -n $sign ]] && printf '%s' $sign
     ((hours != 0)) && printf '%02d:' $hours
     printf '%02d:%02d\n' $minutes $remains
 }
