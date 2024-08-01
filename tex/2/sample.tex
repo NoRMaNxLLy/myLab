@@ -1,28 +1,33 @@
-\documentclass[10pt]{article}
+\documentclass[11pt]{article}
 \usepackage{graphicx}
+\usepackage{fontspec}
+
+\newfontfamily\titlefont{DejaVu Sans Mono}
 
 \begin{document}
 \begin{titlepage}
-    \begin{center}
-        \includegraphics{images/logo2.png}
-        \vspace{0.5in}
+    \titlefont
+    \center
+    \includegraphics{images/logo2.png}
+    \vspace{0.5in}
 
-        {\huge \textbf{hello world. this is the title page}}
+    \begin{huge}
+        \itshape
+        \bfseries
+        hello world. this is the title page
+    \end{huge}
 
-        \vspace{0.5in}
+    \vspace{0.5in}
 
-        \textbf{Prepared by:}
+    \textbf{Prepared by:}\\
+    me
 
-        me
+    \vspace{0.5in}
+    \textbf{supervisor:}\\
+    also me
 
-        \vspace{0.5in}
-        \textbf{supervisor:}
-
-        also me
-
-        \vspace{0.5in}
-        \today
-    \end{center}
+    \vspace{0.5in}
+    \today
 \end{titlepage}
 
 the first page
