@@ -1,0 +1,26 @@
+\documentclass{article}
+
+\usepackage{lipsum}
+\usepackage{blindtext}
+\usepackage{polyglossia}
+\setmainlanguage{arabic}
+\setotherlanguages{english}
+\newfontfamily\arabicfont[Script=Arabic]{Amiri}
+
+\rightfootnoterule
+
+\setlipsum{text=arabic}
+
+\begin{document}
+\lipsum
+\lipsum
+\lipsum
+
+\pagebreak
+
+\textlang{english}{%
+    \blindtext
+}
+
+السلام عليكم\footnote{هامش}
+\end{document}
