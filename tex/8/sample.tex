@@ -1,0 +1,21 @@
+\documentclass[a8paper]{report}
+
+\usepackage{polyglossia}
+
+\newfontfamily\arabicfont[Script=Arabic]{Amiri}
+\setmainlanguage[numerals=maghrib]{arabic}
+\setotherlanguage{english}
+
+% \arabic is internally defined by LaTeX
+\renewcommand{\thesection} {\Alph{section}}
+\renewcommand{\thesubsection} {\arabic{subsection}.\arabic{section}}
+\renewcommand{\thesubsubsection} {\arabic{subsubsection}.\arabic{subsection}.\arabic{section}}
+
+\begin{document}
+\section{قسم}
+\subsection{قسم فرعي}
+\subsection{قسم فرعي}
+\subsection{قسم فرعي}
+\section{قسم}
+
+\end{document}
