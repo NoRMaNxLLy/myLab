@@ -1,0 +1,21 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{polyglossia}
+
+%\newfontfamily\arabicfont[Script=Arabic]{Noto Naskh Arabic}
+\newfontfamily\arabicfont[Script=Arabic]{Scheherazade New}
+\setmainlanguage[numerals=maghrib]{arabic}
+\setotherlanguage{english}
+
+% \arabic is internally defined by LaTeX
+\renewcommand{\thesection} {\arabic{section}}
+\renewcommand{\thesubsection} {\arabic{subsection}.\arabic{section}}
+\renewcommand{\thesubsubsection} {\arabic{subsubsection}.\arabic{subsection}.\arabic{section}}
+
+\begin{document}
+\tableofcontents
+\include{ch1}
+\include{ch2}
+\end{document}
+
