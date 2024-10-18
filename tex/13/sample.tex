@@ -1,0 +1,20 @@
+\documentclass{article}
+
+\usepackage{polyglossia}
+\usepackage[autolang=hyphen]{biblatex}
+
+\newfontfamily\arabicfont[Script=Arabic]{Scheherazade New}
+\newfontfamily\englishfont[]{DejaVu Sans}
+\setmainlanguage[numerals=maghrib]{arabic}
+\setotherlanguage{english}
+
+\addbibresource{bib.bib}
+
+\begin{document}
+وفقا للورقة
+\cite{Kreutz_2015}
+و الورقة
+\cite{أنا}
+
+\printbibliography
+\end{document}
