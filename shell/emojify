@@ -1,0 +1,15 @@
+#!/bin/bash
+
+emojies_file="$HOME/.local/share/emojies.txt"
+
+while IFS= read -r line; do
+    [[ -z "$line" ]] && continue
+    [[ "$line" = *\#* ]] && continue
+
+        emoji="${line%%	*}"
+    keys="${line#*	}"
+    printf 'emoji:%s\n' "$emoji"
+    for k in ${keys//	/ }; do
+        printf 'key: %s\n' "$k"
+    done
+done < "$emojies_file"
