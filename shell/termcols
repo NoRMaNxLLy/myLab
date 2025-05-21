@@ -1,0 +1,54 @@
+#!/bin/sh
+
+# <http://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.7.pod#XTerm_Operating_System_Commands>
+# <https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Operating-System-Commands>
+
+# read_colors read the colors from stdin. each line represents a color
+# as `NAME #RGB`
+read_colors() {
+	while read -r n c; do
+		case "$n" in
+			bg) bg="$c";;
+			fg) fg="$c";;
+			cc) cc="$c";;
+			c[0-9]|c1[0-5]) eval "$n=\$c";;
+			*) return 1;;
+		esac
+	done
+}
+
+set_color() {
+	printf '\033]%d;%s\033\\' "$1" "$2"
+}
+
+main() {
+	if ! read_colors; then
+		echo "could not read colors" 1>&2
+		exit 1
+	fi
+
+	# background
+	set_color 11 "$bg"
+
+	# foreground
+	set_color 10 "$fg"
+
+	# 16 colors
+	set_color 4 "1;$c1"
+	set_color 4 "2;$c2"
+	set_color 4 "3;$c3"
+	set_color 4 "4;$c4"
+	set_color 4 "5;$c5"
+	set_color 4 "6;$c6"
+	set_color 4 "7;$c7"
+	set_color 4 "8;$c8"
+	set_color 4 "9;$c9"
+	set_color 4 "10;$c10"
+	set_color 4 "11;$c11"
+	set_color 4 "12;$c12"
+	set_color 4 "13;$c13"
+	set_color 4 "14;$c14"
+	set_color 4 "15;$c15"
+}
+
+main
