@@ -1,0 +1,114 @@
+#!/bin/bash
+
+progname="${0##*/}"
+PS1="[$progname] \W \$ "
+declare -xA help
+
+less() {
+	command less --wordwrap --ignore-case "$@"
+}
+export -f less
+
+piped() {
+	[[ -t 0 ]] && return 1
+	return 0
+}
+export -f piped
+
+search() {
+	local pattern
+	declare -a ids
+	pattern="$1"
+	shift
+	if [[ -z $pattern ]]; then
+		echo "search PATTERN"
+		return 1
+	fi
+	if ! piped; then
+		find -- * -type f ! -path '.*' -exec grep -i -l -E "$pattern" {} \+
+		return
+	fi
+	mapfile -t ids
+	grep -i -l -E "$pattern" "${ids[@]}"
+}
+export -f search
+
+titles() {
+	if ! piped; then
+		for id in "$@"; do
+			IFS= read -r title <"$id"
+			printf '%-14s %s\n' "$id" "${title#\#}"
+		done
+		return 0
+	fi
+	mapfile -t ids
+	for id in "${ids[@]}"; do
+		IFS= read -r title <"$id"
+		printf '%-14s %s\n' "$id" "${title#\#}"
+		#echo "$id - $title";
+	done
+}
+export -f titles
+
+print() {
+	declare -a wrqhs
+
+	if ! piped; then
+		wrqhs=("$@")
+		for w in "${wrqhs[@]}"; do
+			read -r title <"$w"
+			echo "$w"
+			echo "$(<"$w")"
+			echo "----"
+		done
+		return
+	fi
+
+	mapfile -t wrqhs
+	for w in "${wrqhs[@]}"; do
+		read -r title <"$w"
+		echo "$w"
+		echo "$(<"$w")"
+		echo "----"
+	done
+}
+export -f print
+
+pager() {
+	declare -a wrqhs
+
+	if ! piped; then
+		wrqhs=("$@")
+		if ((${#wrqhs[@]} == 0)); then
+			echo "${help[pager]}"
+			return 1
+		fi
+		less "${wrqhs[@]}"
+		return
+	fi
+
+	mapfile -t wrqhs
+	less "${wrqhs[@]}"
+}
+export -f pager
+help["pager"]="pager help msg"
+
+shell() {
+	trap '' INT
+	set -o history
+	HISTFILE="$HOME/.cache/${progname}_history"
+	while IFS= read -p "${PS1@P}" -e -r line; do
+		eval "$line"
+	done
+}
+
+#cd "$HOME/repos/normanxlly/knsh" || exit
+cd "/var/tmp/zet/docs" || exit
+#eval "$*"
+#if piped; then
+#    mapfile -t lines
+#    exec </dev/tty
+#    /bin/bash -c "$* ${lines[*]}"
+#    exit
+#fi
+/bin/bash -c "$*"

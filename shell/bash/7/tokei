@@ -1,0 +1,37 @@
+#!/bin/bash
+
+declare -i total_lines=0
+declare -i total_lines_without_comments=0
+declare -i total_comments=0
+declare -i total_blanks=0
+
+shebang() {
+	read -r head
+	[[ $head = \#\!* ]] && return 0
+}
+
+do_reading() {
+	mapfile lines <"$1"
+
+	# TODO: hash symbol precedeed by blanks?
+	for l in "${lines[@]}"; do
+		total_lines+=1
+		[[ $l == \#* ]] && total_comments+=1 && continue
+		[[ $l =~ ^$ ]] && total_blanks+=1 && continue
+	done
+
+}
+
+tokei() {
+	declare -a files
+	for f in **; do
+		test -d "$f" && continue
+		shebang <"$f" && files+=("$f")
+		do_reading "$f"
+	done
+
+	printf 'total lines:      %d\n' $total_lines
+	printf 'without comments: %d\n' $((total_lines - total_lines_without_comments))
+	printf 'total comments:   %d\n' $total_comments
+	printf 'total blanks:     %d\n' $total_blanks
+}
