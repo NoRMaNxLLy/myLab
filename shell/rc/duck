@@ -1,0 +1,3 @@
+#!/usr/bin/env rc
+
+exec w3m https://ddg.gg/lite?q=$"*

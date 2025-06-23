@@ -1,0 +1,13 @@
+#!/usr/bin/env rc
+
+if (test -n $WAYLAND_DISPLAY) {
+    wl-paste
+	exit
+}
+
+if (test -n "$DISPLAY") {
+    xclip -out -selection clipboard -rmlastnl || xsel --output --clipboard
+	exit
+}
+
+cat /tmp/clip
