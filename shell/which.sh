@@ -1,7 +1,7 @@
 #!/bin/sh
 
 which() {
-    args="$@"
+    args="$*"
 
     OLDIFS="$IFS"
     IFS=:
