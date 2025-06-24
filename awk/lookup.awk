@@ -9,6 +9,7 @@ BEGIN {
 	for (i = 1; i <= NF; i++) {
 		split($i, fields, "\t")
 		if (fields[1] != k) continue
-		if (fields[2] == v) print $0
+		if (fields[2] != v) continue
+		print
 	}
 }
