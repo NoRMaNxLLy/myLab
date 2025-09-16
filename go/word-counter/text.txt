@@ -1,0 +1,6 @@
+UTF stands for Unicode Transformation Format and the key word here is
+Transformation. In essence, you can think of UTF-8 as a “recipe” or
+algorithm for converting (transforming) a single Unicode code point
+value into a sequence of 1 to 4 byte-sized pieces. As the value of the
+Unicode code point increases so does the number of single bytes required
+to represent it in UTF-8 format.
