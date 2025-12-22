@@ -1,0 +1,12 @@
+#!/bin/sh
+
+pandoc -f html -t "plain-raw_html
+-auto_identifiers
++autolink_bare_uris
+-bracketed_spans
+-fenced_divs
+-header_attributes
+-native_divs
+-native_spans
++rebase_relative_paths
+" "$*"
